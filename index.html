@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kalkulator kosztów paliwa</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #111827, #1f2937);
+            padding: 40px 20px;
+            color: #111827;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .opis {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 35px;
+        }
+
+        .paliwa {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .karta {
+            border-radius: 16px;
+            padding: 25px;
+            border: 2px solid #e5e7eb;
+            background: #f9fafb;
+            transition: 0.2s;
+        }
+
+        .karta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .karta.benzyna {
+            border-top: 6px solid #2563eb;
+        }
+
+        .karta.diesel {
+            border-top: 6px solid #16a34a;
+        }
+
+        .karta.lpg {
+            border-top: 6px solid #f97316;
+        }
+
+        .ikona {
+            text-align: center;
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .pole {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            font-size: 17px;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+        }
+
+        .wynik {
+            margin-top: 25px;
+            background: #111827;
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .wynik p {
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        .wynik strong {
+            font-size: 32px;
+            color: #4ade80;
+        }
+
+        .jednostka {
+            font-size: 16px;
+            color: #d1d5db;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .paliwa {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚗 Kalkulator paliwa</h1>
+
+    <p class="opis">
+        Porównaj koszt przejechania 100 km dla różnych rodzajów paliwa
+    </p>
+
+
+    <div class="paliwa">
+
+        <!-- BENZYNA -->
+
+        <div class="karta benzyna">
+
+            <div class="ikona">⛽</div>
+
+            <h2>Benzyna</h2>
+
+            <div class="pole">
+                <label for="cenaBenzyna">
+                    Cena paliwa (zł/l)
+                </label>
+
+                <input
+                    type="number"
+                    id="cenaBenzyna"
+                    value="6.50"
+                    min="0"
+                    step="0.01"
+                    oninput="oblicz()"
+                >
+            </div>
+
+            <div class="pole">
+                <label for="spalanieBenzyna">
+                    Spalanie (l/100 km)
+                </label>
+
+                <input
+                    type="number"
+                    id="spalanieBenzyna"
+                    value="7"
+                    min="0"
+                    step="0.1"
+                    oninput="oblicz()"
+                >
+            </div>
+
+            <div class="wynik">
+                <p>Koszt przejechania 100 km</p>
+
+                <strong id="wynikBenzyna">
+                    45.50
+                </strong>
+
+                <span class="jednostka">
+                    zł
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- DIESEL -->
+
+        <div class="karta diesel">
+
+            <div class="ikona">🛢️</div>
+
+            <h2>Diesel</h2>
+
+            <div class="pole">
+                <label for="cenaDiesel">
+                    Cena paliwa (zł/l)
+                </label>
+
+                <input
+                    type="number"
+                    id="cenaDiesel"
+                    value="6.70"
+                    min="0"
+                    step="0.01"
+                    oninput="oblicz()"
+                >
+            </div>
+
+            <div class="pole">
+                <label for="spalanieDiesel">
+                    Spalanie (l/100 km)
+                </label>
+
+                <input
+                    type="number"
+                    id="spalanieDiesel"
+                    value="5.5"
+                    min="0"
+                    step="0.1"
+                    oninput="oblicz()"
+                >
+            </div>
+
+            <div class="wynik">
+                <p>Koszt przejechania 100 km</p>
+
+                <strong id="wynikDiesel">
+                    36.85
+                </strong>
+
+                <span class="jednostka">
+                    zł
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- LPG -->
+
+        <div class="karta lpg">
+
+            <div class="ikona">🔥</div>
+
+            <h2>LPG</h2>
+
+            <div class="pole">
+                <label for="cenaLPG">
+                    Cena paliwa (zł/l)
+                </label>
+
+                <input
+                    type="number"
+                    id="cenaLPG"
+                    value="3.20"
+                    min="0"
+                    step="0.01"
+                    oninput="oblicz()"
+                >
+            </div>
+
+            <div class="pole">
+                <label for="spalanieLPG">
+                    Spalanie (l/100 km)
+                </label>
+
+                <input
+                    type="number"
+                    id="spalanieLPG"
+                    value="9"
+                    min="0"
+                    step="0.1"
+                    oninput="oblicz()"
+                >
+            </div>
+
+            <div class="wynik">
+                <p>Koszt przejechania 100 km</p>
+
+                <strong id="wynikLPG">
+                    28.80
+                </strong>
+
+                <span class="jednostka">
+                    zł
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        Kalkulator kosztów paliwa © 2026
+    </footer>
+
+</div>
+
+
+<script>
+
+    function oblicz() {
+
+        // BENZYNA
+
+        let cenaBenzyna =
+            parseFloat(
+                document.getElementById("cenaBenzyna").value
+            ) || 0;
+
+        let spalanieBenzyna =
+            parseFloat(
+                document.getElementById("spalanieBenzyna").value
+            ) || 0;
+
+        let kosztBenzyna =
+            cenaBenzyna * spalanieBenzyna;
+
+
+        document.getElementById("wynikBenzyna")
+            .textContent = kosztBenzyna.toFixed(2);
+
+
+        // DIESEL
+
+        let cenaDiesel =
+            parseFloat(
+                document.getElementById("cenaDiesel").value
+            ) || 0;
+
+        let spalanieDiesel =
+            parseFloat(
+                document.getElementById("spalanieDiesel").value
+            ) || 0;
+
+        let kosztDiesel =
+            cenaDiesel * spalanieDiesel;
+
+
+        document.getElementById("wynikDiesel")
+            .textContent = kosztDiesel.toFixed(2);
+
+
+        // LPG
+
+        let cenaLPG =
+            parseFloat(
+                document.getElementById("cenaLPG").value
+            ) || 0;
+
+        let spalanieLPG =
+            parseFloat(
+                document.getElementById("spalanieLPG").value
+            ) || 0;
+
+        let kosztLPG =
+            cenaLPG * spalanieLPG;
+
+
+        document.getElementById("wynikLPG")
+            .textContent = kosztLPG.toFixed(2);
+    }
+
+
+    // Oblicz od razu po uruchomieniu strony
+
+    oblicz();
+
+</script>
+
+</body>
+</html>
